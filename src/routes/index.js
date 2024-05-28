@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '../App'
 import Login from '../pages/Login'
 import ForgotPassowrd from '../pages/ForgotPassowrd'
 import SignUp from '../pages/SignUp'
@@ -11,6 +10,7 @@ import ProductDetails from '../pages/ProductDetails'
 import Cart from '../pages/Cart'
 import SearchProduct from '../pages/SearchProduct'
 import Home from '../pages/Home'
+import App from '../App'
 
 const router = createBrowserRouter([
     {
@@ -65,7 +65,6 @@ const router = createBrowserRouter([
             },
         ]
     }
-])
+]);
 
-
-export default router
+export default router;

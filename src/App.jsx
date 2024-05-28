@@ -1,8 +1,14 @@
-import React from 'react'
+import { Outlet } from 'react-router-dom'
+import { Header } from './components'
+import Home from './pages/Home'
 
 const App = () => {
   return (
-    <div className='bg-black text-red-600'>App</div>
+    <>
+      <Header />
+      {/* <Outlet /> */}
+      <Home />
+    </>
   )
 }
 
