@@ -3,20 +3,24 @@ import loginIcons from '../assest/signin.gif'
 import { Link } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 
-const Login = () => {
-    const [showPassword, setShowPassword] = useState(false);
+const SignUp = () => {
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [data, setData] = useState({
         email: "",
-        password: ""
-    });
+        password: "",
+        name: "",
+        confirmPassword: "",
+        profilePic: "",
+    })
 
     const handleOnChange = (e) => {
         const { name, value } = e.target
 
-        setData((preve) => {
+        setData((prev) => {
             return {
-                ...preve,
+                ...prev,
                 [name]: value
             }
         })
@@ -26,9 +30,8 @@ const Login = () => {
         e.preventDefault();
     };
     console.log(data)
-
     return (
-        <section id='login'>
+        <section id='signup'>
             <div className='flex justify-center items-center min-h-screen'>
 
                 <div className='bg-[#bcbcbc3c] p-5 w-full max-w-sm'>
@@ -38,7 +41,19 @@ const Login = () => {
 
                     <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
                         <div className='grid'>
-                            <label>Email : </label>
+                            <label>Name</label>
+                            <div className='bg-white p-2'>
+                                <input
+                                    type='text'
+                                    placeholder='enter name'
+                                    name='name'
+                                    value={data.name}
+                                    onChange={handleOnChange}
+                                    className='w-full h-full outline-none bg-transparent' />
+                            </div>
+                        </div>
+                        <div className='grid'>
+                            <label>Email</label>
                             <div className='bg-white p-2'>
                                 <input
                                     type='email'
@@ -51,7 +66,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <label>Password : </label>
+                            <label>Password</label>
                             <div className='bg-white p-2 flex'>
                                 <input
                                     type={showPassword ? "text" : "password"}
@@ -74,6 +89,33 @@ const Login = () => {
                                     </span>
                                 </div>
                             </div>
+
+                        </div>
+                        <div>
+                            <label>Confirm Password</label>
+                            <div className='bg-white p-2 flex'>
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    placeholder='enter confirm password'
+                                    value={data.confirmPassword}
+                                    name='password'
+                                    onChange={handleOnChange}
+                                    className='w-full h-full outline-none bg-transparent' />
+                                <div className='cursor-pointer text-xl' onClick={() => setShowConfirmPassword((prev) => !prev)}>
+                                    <span>
+                                        {
+                                            showConfirmPassword ? (
+                                                <FaEyeSlash />
+                                            )
+                                                :
+                                                (
+                                                    <FaEye />
+                                                )
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
                             <Link to={'/forgot-password'} className='block w-fit ml-auto hover:underline hover:text-red-600'>
                                 Forgot password ?
                             </Link>
@@ -92,4 +134,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignUp
