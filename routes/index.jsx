@@ -1,6 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-// import ForgotPassowrd from '../pages/ForgotPassowrd'
-// import SignUp from '../pages/SignUp'
 // import AdminPanel from '../pages/AdminPanel'
 // import AllUsers from '../pages/AllUsers'
 // import AllProducts from '../pages/AllProducts'
@@ -10,7 +8,7 @@ import { createBrowserRouter } from 'react-router-dom'
 // import SearchProduct from '../pages/SearchProduct'
 import App from '../src/App';
 import Home from '../src/pages/Home'
-import Login from '../src/pages/Login'
+import { ForgetPassword, Login, SignUp } from '../src/pages';
 
 const router = createBrowserRouter([
     {
@@ -25,14 +23,14 @@ const router = createBrowserRouter([
                 path: "login",
                 element: <Login />
             },
-            // {
-            //     path: "forgot-password",
-            //     element: <ForgotPassowrd />
-            // },
-            // {
-            //     path: "sign-up",
-            //     element: <SignUp />
-            // },
+            {
+                path: "forgot-password",
+                element: <ForgetPassword />
+            },
+            {
+                path: "sign-up",
+                element: <SignUp />
+            },
             // {
             //     path: "product-category",
             //     element: <CategoryProduct />
