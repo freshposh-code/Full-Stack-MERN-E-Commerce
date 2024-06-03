@@ -1,11 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-// import AdminPanel from '../pages/AdminPanel'
-// import AllUsers from '../pages/AllUsers'
-// import AllProducts from '../pages/AllProducts'
-// import CategoryProduct from '../pages/CategoryProduct'
-// import ProductDetails from '../pages/ProductDetails'
-// import Cart from '../pages/Cart'
-// import SearchProduct from '../pages/SearchProduct'
 import App from '../src/App';
 import Home from '../src/pages/Home'
 import { ForgetPassword, Login, SignUp } from '../src/pages';

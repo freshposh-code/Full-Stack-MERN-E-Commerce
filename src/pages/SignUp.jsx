@@ -30,9 +30,10 @@ const SignUp = () => {
         e.preventDefault();
     };
     console.log(data)
+
     return (
         <section id='signup'>
-            <div className='flex justify-center items-center min-h-screen'>
+            <div className='sm:pt-16 pt-0 flex justify-center items-center min-h-screen'>
 
                 <div className='bg-[#bcbcbc3c] p-5 w-full max-w-sm'>
                     <div className='w-20 h-20 mx-auto'>
@@ -89,8 +90,9 @@ const SignUp = () => {
                                     </span>
                                 </div>
                             </div>
-
                         </div>
+
+
                         <div>
                             <label>Confirm Password</label>
                             <div className='bg-white p-2 flex'>
@@ -98,7 +100,7 @@ const SignUp = () => {
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder='enter confirm password'
                                     value={data.confirmPassword}
-                                    name='password'
+                                    name='confirmPassword'
                                     onChange={handleOnChange}
                                     className='w-full h-full outline-none bg-transparent' />
                                 <div className='cursor-pointer text-xl' onClick={() => setShowConfirmPassword((prev) => !prev)}>
@@ -125,7 +127,7 @@ const SignUp = () => {
 
                     </form>
 
-                    <p className='my-5'>Don't have account ? <Link to={"/sign-up"} className=' text-red-600 hover:text-red-700 hover:underline'>Sign up</Link></p>
+                    <p className='my-5'>Already have an account ? <Link to={"/login"} className=' text-red-600 hover:text-red-700 hover:underline'>Sign in</Link></p>
                 </div>
 
 
