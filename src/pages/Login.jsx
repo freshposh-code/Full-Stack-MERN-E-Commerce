@@ -31,7 +31,7 @@ const Login = () => {
         <section id='login'>
             <div className='flex justify-center items-center min-h-screen'>
 
-                <div className='bg-[#bcbcbc3c] p-5 w-full max-w-sm'>
+                <div className='bg-[#fff] p-5 w-full max-w-sm'>
                     <div className='w-20 h-20 mx-auto'>
                         <img src={loginIcons} alt='login icons' />
                     </div>
@@ -39,7 +39,7 @@ const Login = () => {
                     <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
                         <div className='grid'>
                             <label>Email : </label>
-                            <div className='bg-white p-2'>
+                            <div className='bg-slate-100 p-2'>
                                 <input
                                     type='email'
                                     placeholder='enter email'
@@ -52,7 +52,7 @@ const Login = () => {
 
                         <div>
                             <label>Password : </label>
-                            <div className='bg-white p-2 flex'>
+                            <div className='bg-slate-100 p-2 flex'>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder='enter password'
