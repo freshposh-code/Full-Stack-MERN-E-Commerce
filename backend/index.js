@@ -4,7 +4,8 @@ const connectDB = require('./config/db')
 const router = require('./routes')
 const cookieParser = require('cookie-parser')
 
-require('dotenv').config()
+require('dotenv').config();
+
 
 
 const app = express()
