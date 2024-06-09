@@ -1,65 +1,58 @@
-const bcrypt = require('bcryptjs')
-const userModel = require('../../models/userModel')
+const bcrypt = require('bcryptjs');
+const userModel = require('../../models/userModel');
 const jwt = require('jsonwebtoken');
 
 async function userSignInController(req, res) {
     try {
-        const { email, password } = req.body
+        const { email, password } = req.body;
 
         if (!email) {
-            throw new Error("Please provide email")
+            throw new Error("Please provide email");
         }
         if (!password) {
-            throw new Error("Please provide password")
+            throw new Error("Please provide password");
         }
 
-        const user = await userModel.findOne({ email })
+        const user = await userModel.findOne({ email });
 
         if (!user) {
-            throw new Error("User not found")
+            throw new Error("User not found");
         }
 
-        const checkPassword = await bcrypt.compare(password, user.password)
+        const checkPassword = await bcrypt.compare(password, user.password);
 
-        console.log("checkPassoword", checkPassword)
+        console.log("checkPassoword", checkPassword);
 
         if (checkPassword) {
             const tokenData = {
                 _id: user._id,
                 email: user.email,
-            }
-            const token = await jwt.sign(tokenData, "qweekhgqeucgvqwuvbqe", { expiresIn: 60 * 60 * 8 });
+            };
+            const token = await jwt.sign(tokenData, process.env.REACT_VITE_TOKEN_SECRET_KEY, { expiresIn: 60 * 60 * 8 });
 
             const tokenOption = {
                 httpOnly: true,
                 secure: true
-            }
+            };
 
             res.cookie("token", token, tokenOption).status(200).json({
                 message: "Login successfully",
                 data: token,
                 success: true,
                 error: false
-            })
+            });
 
         } else {
-            throw new Error("Please check Password")
+            throw new Error("Please check Password");
         }
-
-
-
-
-
-
 
     } catch (err) {
         res.json({
             message: err.message || err,
             error: true,
             success: false,
-        })
+        });
     }
-
 }
 
-module.exports = userSignInController
+module.exports = userSignInController;
