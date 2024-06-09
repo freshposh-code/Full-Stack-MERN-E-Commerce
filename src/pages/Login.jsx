@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import loginIcons from '../assest/signin.gif'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
+// import SummaryApi from '../common'
+import { toast } from 'react-toastify'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -22,10 +24,33 @@ const Login = () => {
         })
     }
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const dataResponse = await fetch('http://localhost:8080/api/signin', {
+            method: 'post',
+            credentials: 'include',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        const dataApi = await dataResponse.json()
+
+        if (dataApi.success) {
+            toast.success(dataApi.message)
+            navigate('/')
+            // fetchUserDetails();
+            // fetchUserAddToCart();
+        }
+
+        if (dataApi.error) {
+            toast.error(dataApi.message)
+        }
     };
-    console.log(data)
 
     return (
         <section id='login'>
@@ -46,6 +71,7 @@ const Login = () => {
                                     name='email'
                                     value={data.email}
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                             </div>
                         </div>
@@ -59,6 +85,7 @@ const Login = () => {
                                     value={data.password}
                                     name='password'
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                                 <div className='cursor-pointer text-xl' onClick={() => setShowPassword((prev) => !prev)}>
                                     <span>

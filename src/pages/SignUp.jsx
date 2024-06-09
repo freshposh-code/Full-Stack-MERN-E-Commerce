@@ -1,19 +1,41 @@
 import React, { useState } from 'react'
 import loginIcons from '../assest/signin.gif'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
+import imagePosh64 from '../helpers/imagePosh64'
+// import SummaryApi from '../common'
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     const [data, setData] = useState({
         email: "",
         password: "",
         name: "",
         confirmPassword: "",
         profilePic: "",
-    })
+    });
+
+    const navigate = useNavigate();
+
+    const handleUploadPic = async (e) => {
+        const file = e.target.files[0]
+
+
+        const imagePic = await imagePosh64(file)
+
+        setData((prev) => {
+            return {
+                ...prev,
+                profilePic: imagePic
+            }
+        })
+
+        console.log(file)
+    }
 
     const handleOnChange = (e) => {
         const { name, value } = e.target
@@ -28,8 +50,32 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (data.password === data.confirmPassword) {
+
+            const dataResponse = await fetch('http://localhost:8080/api/signup', {
+                method: 'post',
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            const dataApi = await dataResponse.json()
+
+            if (dataApi.success) {
+                toast.success(dataApi.message)
+                navigate("/login")
+            }
+
+            if (dataApi.error) {
+                toast.error(dataApi.message)
+            }
+
+        } else {
+            toast.error("Please check password and confirm password")
+        }
     };
-    console.log(data)
 
     return (
         <section id='signup'>
@@ -39,14 +85,14 @@ const SignUp = () => {
                 <div className='bg-white p-5 w-full max-w-sm'>
                     <div className='w-20 h-20 mx-auto relative overflow-hidden rounded-full'>
                         <div>
-                            <img src={loginIcons} alt='login icons' />
+                            <img src={data.profilePic || loginIcons} alt='login icons' />
                         </div>
                         <form>
                             <label>
                                 <div className='text-xs bg-opacity-80 bg-slate-200 pb-4 pt-2 cursor-pointer text-center absolute bottom-0 w-full'>
                                     Upload  Photo
                                 </div>
-                                <input type='file' className='hidden' />
+                                <input type='file' className='hidden' onChange={handleUploadPic} />
                             </label>
                         </form>
                     </div>
@@ -62,6 +108,7 @@ const SignUp = () => {
                                     name='name'
                                     value={data.name}
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                             </div>
                         </div>
@@ -74,6 +121,7 @@ const SignUp = () => {
                                     name='email'
                                     value={data.email}
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                             </div>
                         </div>
@@ -87,6 +135,7 @@ const SignUp = () => {
                                     value={data.password}
                                     name='password'
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                                 <div className='cursor-pointer text-xl' onClick={() => setShowPassword((prev) => !prev)}>
                                     <span>
@@ -114,6 +163,7 @@ const SignUp = () => {
                                     value={data.confirmPassword}
                                     name='confirmPassword'
                                     onChange={handleOnChange}
+                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                                 <div className='cursor-pointer text-xl' onClick={() => setShowConfirmPassword((prev) => !prev)}>
                                     <span>
