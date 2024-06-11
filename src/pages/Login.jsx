@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 // import SummaryApi from '../common'
 import { toast } from 'react-toastify'
+import SummaryApi from '../common'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,8 +30,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const dataResponse = await fetch('http://localhost:8080/api/signin', {
-            method: 'post',
+        const dataResponse = await fetch(SummaryApi.signIn.url, {
+            method: SummaryApi.signIn.method,
             credentials: 'include',
             headers: {
                 "content-type": "application/json"
