@@ -8,6 +8,7 @@ const userDetailsController = require("../controller/user/userDetails")
 const authToken = require('../middleware/authToken')
 const userLogout = require('../controller/user/userLogout')
 const allUsers = require('../controller/user/allUsers')
+const updateUser = require('../controller/user/updateUser')
 
 
 
@@ -17,6 +18,7 @@ router.get("/user-details", authToken, userDetailsController)
 router.get('/userLogout', userLogout)
 
 // ADMIN PANEL
-router.get('/allUsers', allUsers)
+router.get('/all-user', allUsers)
+router.post('/update-user', authToken, updateUser)
 
 module.exports = router

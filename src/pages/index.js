@@ -1,3 +1,6 @@
 export { default as Login } from './Login'
 export { default as SignUp } from './SignUp'
 export { default as ForgetPassword } from './ForgetPassword'
+export { default as AdminPanel } from './Adminpanel'
+export { default as AllUsers } from './AllUsers'
+export { default as AllProducts } from './AllProducts'

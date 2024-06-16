@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../src/App';
 import Home from '../src/pages/Home'
-import { ForgetPassword, Login, SignUp } from '../src/pages';
+import { AdminPanel, AllProducts, AllUsers, ForgetPassword, Login, SignUp } from '../src/pages';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +24,20 @@ const router = createBrowserRouter([
                 path: "sign-up",
                 element: <SignUp />
             },
+            {
+                path: "admin-panel",
+                element: <AdminPanel />,
+                children: [
+                    {
+                        path: "all-users",
+                        element: <AllUsers />
+                    },
+                    {
+                        path: "all-products",
+                        element: <AllProducts />
+                    }
+                ]
+            },
             // {
             //     path: "product-category",
             //     element: <CategoryProduct />
@@ -39,20 +53,6 @@ const router = createBrowserRouter([
             // {
             //     path: "search",
             //     element: <SearchProduct />
-            // },
-            // {
-            //     path: "admin-panel",
-            //     element: <AdminPanel />,
-            //     children: [
-            //         {
-            //             path: "all-users",
-            //             element: <AllUsers />
-            //         },
-            //         {
-            //             path: "all-products",
-            //             element: <AllProducts />
-            //         }
-            //     ]
             // },
         ]
     }
