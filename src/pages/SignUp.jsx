@@ -24,7 +24,6 @@ const SignUp = () => {
     const handleUploadPic = async (e) => {
         const file = e.target.files[0]
 
-
         const imagePic = await imagePosh64(file)
 
         setData((prev) => {
@@ -33,8 +32,6 @@ const SignUp = () => {
                 profilePic: imagePic
             }
         })
-
-        console.log(file)
     }
 
     const handleOnChange = (e) => {
