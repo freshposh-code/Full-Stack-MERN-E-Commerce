@@ -7,7 +7,7 @@ import ROLE from '../common/role';
 const AdminPanel = () => {
     const user = useSelector(state => state?.user?.user);
 
-    const navigate = useNavigate
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (user?.role !== ROLE.ADMIN) {
