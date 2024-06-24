@@ -6,17 +6,18 @@ import { FaShoppingCart } from 'react-icons/fa'
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useContext, useState } from "react"
-import Context from "../context"
+// import Context from "../context"
 import SummaryApi from "../common"
 import { toast } from "react-toastify"
 import { setUserDetails } from "../store/userSlice"
 import ROLE from "../common/role"
+import { logo } from "../assest"
 
 const Header = () => {
     const user = useSelector(state => state?.user?.user);
     const dispatch = useDispatch()
     const [menuDisplay, setMenuDisplay] = useState(false)
-    const context = useContext(Context);
+    // const context = useContext(Context);
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -45,7 +46,7 @@ const Header = () => {
                 <div className=' h-full container mx-auto flex items-center px-4 justify-between'>
                     <div className=''>
                         <Link to='/'>
-                            <Logo w={90} h={50} />
+                            <img src={logo} alt="logo" width={100} height={100} className="brightness-0" />
                         </Link>
                     </div>
 
@@ -60,7 +61,7 @@ const Header = () => {
 
                         <div className='relative flex justify-center'>
 
-                            <div className='text-3xl cursor-pointer relative flex justify-center' onClick={() => setMenuDisplay(preve => !preve)}>
+                            <div className='text-3xl cursor-pointer relative flex justify-center' onClick={() => setMenuDisplay(prev => !prev)}>
                                 {
                                     user?.profilePic ? (
                                         <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
