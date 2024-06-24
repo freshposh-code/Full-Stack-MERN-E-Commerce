@@ -13,7 +13,7 @@ async function authToken(req, res, next) {
             })
         }
 
-        jwt.verify(token, process.env.REACT_VITE_TOKEN_SECRET_KEY, function (err, decoded) {
+        jwt.verify(token, process.env.REACT_VITE_APP_TOKEN_SECRET_KEY, function (err, decoded) {
             console.log(err)
             console.log("decoded", decoded)
 
