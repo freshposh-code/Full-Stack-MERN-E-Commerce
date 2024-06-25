@@ -20,6 +20,10 @@ const AllProducts = () => {
         fetchAllProduct()
     }, [])
 
+    const handleProductUpload = (newProduct) => {
+        setAllProduct((prevProducts) => [newProduct, ...prevProducts])
+    }
+
     return (
         <div>
             <div className='bg-white py-2 px-4 flex justify-between items-center'>
@@ -28,7 +32,7 @@ const AllProducts = () => {
             </div>
 
             {/**all product */}
-            <div className='flex items-center flex-wrap gap-4 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
+            <div className='flex items-center flex-wrap gap-4 py-4 h-[calc(100vh-200px)] overflow-y-scroll'>
                 {
                     allProduct.map((product, index) => {
                         return (
@@ -42,7 +46,7 @@ const AllProducts = () => {
             {/**upload prouct component */}
             {
                 openUploadProduct && (
-                    <UploadProduct onClose={() => setOpenUploadProduct(false)} />
+                    <UploadProduct onClose={() => setOpenUploadProduct(false)} onUpload={handleProductUpload} />
                 )
             }
         </div>

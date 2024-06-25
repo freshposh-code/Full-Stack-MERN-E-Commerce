@@ -8,7 +8,7 @@ import SummaryApi from '../common'
 import { toast } from 'react-toastify'
 import DisplayImage from './DisplayImage'
 
-const UploadProduct = ({ onClose }) => {
+const UploadProduct = ({ onClose, onUpload }) => {
 
     const [data, setData] = useState({
         productName: "",
@@ -64,6 +64,7 @@ const UploadProduct = ({ onClose }) => {
 
         if (uploadImage.success) {
             toast.success(uploadImage?.message)
+            onUpload(uploadImage.data) // Call the callback function with the new product data
             onClose()
         }
 
