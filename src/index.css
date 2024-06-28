@@ -12,6 +12,28 @@ body {
     @apply bg-slate-100
 }
 
+/* The entire scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* The scrollbar track */
+::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+/* The scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
+}
+
+/* The scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
@@ -37,4 +59,26 @@ code {
 /**scrollbar hidden****/
 .scrollbar-none::-webkit-scrollbar {
     display: none;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 1px;
+    background: conic-gradient(#0000 10%, #ff002f) content-box;
+    -webkit-mask:
+        repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+        radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    animation: l4 1s infinite steps(10);
+}
+
+@keyframes l4 {
+    to {
+        transform: rotate(1turn)
+    }
 }
