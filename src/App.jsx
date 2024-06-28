@@ -7,11 +7,11 @@ import { useEffect } from 'react';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
+import Loader from './components/Loader';
 
 
 const App = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const fetchUserDetails = async () => {
     const dataResponse = await fetch(SummaryApi.current_user.url, {
@@ -50,6 +50,7 @@ const App = () => {
         </main>
         <Footer />
       </Context.Provider>
+      <Loader />
     </>
   )
 }
