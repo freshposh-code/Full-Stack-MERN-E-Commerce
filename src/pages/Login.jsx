@@ -5,6 +5,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { toast } from 'react-toastify'
 import SummaryApi from '../common'
 import Context from '../context'
+import { setLoading } from '../store/loadingSlice'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -28,9 +30,11 @@ const Login = () => {
     }
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        dispatch(setLoading(true));
 
         const dataResponse = await fetch(SummaryApi.signIn.url, {
             method: SummaryApi.signIn.method,
@@ -41,7 +45,8 @@ const Login = () => {
             body: JSON.stringify(data)
         })
 
-        const dataApi = await dataResponse.json()
+        const dataApi = await dataResponse.json();
+        dispatch(setLoading(false));
 
         if (dataApi.success) {
             toast.success(dataApi.message)
@@ -49,7 +54,6 @@ const Login = () => {
             fetchUserDetails();
             // fetchUserAddToCart();
         }
-
         if (dataApi.error) {
             toast.error(dataApi.message)
         }

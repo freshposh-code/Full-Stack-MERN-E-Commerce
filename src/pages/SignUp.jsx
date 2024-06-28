@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import loginIcons from '../assest/signin.gif'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import imagePosh64 from '../helpers/imagePosh64'
 // import SummaryApi from '../common'
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux'
+import { setLoading } from '../store/loadingSlice'
 
 const SignUp = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const dispatch = useDispatch();
 
     const [data, setData] = useState({
         email: "",
@@ -47,6 +50,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        dispatch(setLoading(true))
 
         if (data.password === data.confirmPassword) {
 
@@ -58,7 +62,8 @@ const SignUp = () => {
                 body: JSON.stringify(data)
             })
 
-            const dataApi = await dataResponse.json()
+            const dataApi = await dataResponse.json();
+            dispatch(setLoading(false))
 
             if (dataApi.success) {
                 toast.success(dataApi.message)

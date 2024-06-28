@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import UploadProduct from '../components/UploadProduct'
 import AdminProductCard from '../components/AdminProductCard'
 import SummaryApi from '../common'
+import { useDispatch } from 'react-redux'
+import { setLoading } from '../store/loadingSlice'
 
 const AllProducts = () => {
     const [openUploadProduct, setOpenUploadProduct] = useState(false)
     const [allProduct, setAllProduct] = useState([])
+    const dispatch = useDispatch();
 
     const fetchAllProduct = async () => {
+        dispatch(setLoading(true));
+
         const response = await fetch(SummaryApi.allProduct.url)
-        const dataResponse = await response.json()
+        const dataResponse = await response.json();
+        dispatch(setLoading(false));
 
         console.log("product data", dataResponse)
 

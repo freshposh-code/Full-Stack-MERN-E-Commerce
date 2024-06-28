@@ -7,6 +7,8 @@ import uploadImage from '../helpers/uploadImage'
 import SummaryApi from '../common'
 import { toast } from 'react-toastify'
 import DisplayImage from './DisplayImage'
+import { useDispatch } from 'react-redux'
+import { setLoading } from '../store/loadingSlice'
 
 const UploadProduct = ({ onClose, onUpload }) => {
 
@@ -22,6 +24,7 @@ const UploadProduct = ({ onClose, onUpload }) => {
 
     const [openFullScreenImage, setOpenFullScreenImage] = useState(false)
     const [fullScreenImage, setFullScreenImage] = useState("")
+    const dispatch = useDispatch()
 
     const handleOnChange = (e) => {
         const { name, value } = e.target
@@ -51,6 +54,8 @@ const UploadProduct = ({ onClose, onUpload }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        dispatch(setLoading(true));
+
         const response = await fetch(SummaryApi.uploadProduct.url, {
             method: SummaryApi.uploadProduct.method,
             credentials: 'include',
@@ -61,11 +66,12 @@ const UploadProduct = ({ onClose, onUpload }) => {
         })
 
         const uploadImage = await response.json()
+        dispatch(setLoading(false));
 
         if (uploadImage.success) {
             toast.success(uploadImage?.message)
-            onUpload(uploadImage.data) // Call the callback function with the new product data
             onClose()
+            onUpload(uploadImage.data)
         }
 
         if (uploadImage.error) {
