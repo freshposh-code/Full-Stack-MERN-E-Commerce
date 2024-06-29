@@ -160,9 +160,7 @@ const UploadProduct = ({ onClose, onUpload }) => {
                                                 <img
                                                     src={el}
                                                     alt={el}
-                                                    width={80}
-                                                    height={80}
-                                                    className='bg-slate-100 border cursor-pointer object-cover'
+                                                    className='bg-slate-100 border cursor-pointer object-contain w-[100px] h-[100px]'
                                                     onClick={() => {
                                                         setOpenFullScreenImage(true)
                                                         setFullScreenImage(el)
