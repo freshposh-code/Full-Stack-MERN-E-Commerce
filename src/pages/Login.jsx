@@ -92,7 +92,6 @@ const Login = () => {
                                     value={data.password}
                                     name='password'
                                     onChange={handleOnChange}
-                                    required
                                     className='w-full h-full outline-none bg-transparent' />
                                 <div className='cursor-pointer text-xl' onClick={() => setShowPassword((prev) => !prev)}>
                                     <span>
