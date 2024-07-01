@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../src/App';
 import Home from '../src/pages/Home'
-import { AdminPanel, AllProducts, AllUsers, ForgetPassword, Login, SignUp } from '../src/pages';
+import { AdminPanel, AllProducts, AllUsers, CategoryProduct, ForgetPassword, Login, ProductDetails, SignUp } from '../src/pages';
 
 const router = createBrowserRouter([
     {
@@ -38,14 +38,14 @@ const router = createBrowserRouter([
                     }
                 ]
             },
-            // {
-            //     path: "product-category",
-            //     element: <CategoryProduct />
-            // },
-            // {
-            //     path: "product/:id",
-            //     element: <ProductDetails />
-            // },
+            {
+                path: "product-category",
+                element: <CategoryProduct />
+            },
+            {
+                path: "product/:id",
+                element: <ProductDetails />
+            },
             // {
             //     path: 'cart',
             //     element: <Cart />
