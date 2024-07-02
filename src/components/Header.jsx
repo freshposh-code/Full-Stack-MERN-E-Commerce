@@ -43,7 +43,7 @@ const Header = () => {
     return (
         <>
             <header className='h-16 shadow-md bg-white fixed w-full z-40'>
-                <div className=' h-full container mx-auto flex items-center px-4 justify-between'>
+                <div className='h-full mx-auto flex items-center px-4 justify-between'>
                     <div className=''>
                         <Link to='/'>
                             <img src={logo} alt="logo" width={100} height={100} className="brightness-0" />
@@ -57,7 +57,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className='flex items-center gap-7'>
+                    <div className='flex items-center gap-4'>
 
                         <div className='relative flex justify-center'>
 
