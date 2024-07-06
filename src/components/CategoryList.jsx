@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import SummaryApi from '../common'
 import { Link } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-// import { setLoading } from '../store/loadingSlice'
 
 const CategoryList = () => {
     const [categoryProduct, setCategoryProduct] = useState([])
     const [loading, setLoading] = useState(false)
-    // const dispatch = useDispatch()
 
     const categoryLoading = new Array(13).fill(null)
 
     const fetchCategoryProduct = async () => {
-        // dispatch(setLoading(true))
         setLoading(true)
 
         const response = await fetch(SummaryApi.categoryProduct.url)
 
         const dataResponse = await response.json()
-        // dispatch(setLoading(false))
         setLoading(false)
         setCategoryProduct(dataResponse.data)
 

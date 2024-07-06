@@ -9,9 +9,6 @@ const VerticalCardProduct = ({ category, heading }) => {
     const [loading, setLoading] = useState(true)
     const loadingList = new Array(13).fill(null)
 
-    // const [scroll, setScroll] = useState(0)
-    // const scrollElement = useRef()
-
     const fetchData = async () => {
 
         setLoading(true)
@@ -36,13 +33,6 @@ const VerticalCardProduct = ({ category, heading }) => {
         fetchData()
     }, [])
 
-    // const scrollRight = () => {
-    //     scrollElement.current.scrollLeft += 300
-    // }
-    // const scrollLeft = () => {
-    //     scrollElement.current.scrollLeft -= 300
-    // }
-
 
     return (
         <div className='container mx-auto px-4 my-6 relative'>
@@ -51,9 +41,6 @@ const VerticalCardProduct = ({ category, heading }) => {
 
 
             <div className='flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all'>
-
-                {/* <button className='bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block' onClick={scrollLeft}><FaAngleLeft /></button>
-                <button className='bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block' onClick={scrollRight}><FaAngleRight /></button> */}
 
                 {
 
@@ -89,7 +76,7 @@ const VerticalCardProduct = ({ category, heading }) => {
                                             <p className='text-red-600 font-medium'>{displayINRCurrency(product?.sellingPrice)}</p>
                                             <p className='text-slate-500 line-through'>{displayINRCurrency(product?.price)}</p>
                                         </div>
-                                        <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full'>Add to Cart</button>
+                                        <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-0.5 rounded-full' onClick={(e) => handleAddToCart(e, product?._id)}>Add to Cart</button>
                                     </div>
                                 </Link>
                             )
