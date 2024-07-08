@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../src/App';
 import Home from '../src/pages/Home'
-import { AdminPanel, AllProducts, AllUsers, CategoryProduct, ForgetPassword, Login, ProductDetails, SignUp } from '../src/pages';
+import { AdminPanel, AllProducts, AllUsers, Cart, CategoryProduct, ForgetPassword, Login, ProductDetails, SignUp } from '../src/pages';
 
 const router = createBrowserRouter([
     {
@@ -46,10 +46,10 @@ const router = createBrowserRouter([
                 path: "product/:id",
                 element: <ProductDetails />
             },
-            // {
-            //     path: 'cart',
-            //     element: <Cart />
-            // },
+            {
+                path: 'cart',
+                element: <Cart />
+            },
             // {
             //     path: "search",
             //     element: <SearchProduct />
