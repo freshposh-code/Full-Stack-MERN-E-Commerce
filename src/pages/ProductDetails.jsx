@@ -4,6 +4,8 @@ import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaStarHalf } from "react-icons/fa";
 import displayINRCurrency from '../helpers/displayCurrency';
+import Context from '../context';
+import { toast } from 'react-toastify';
 
 const ProductDetails = () => {
     const [data, setData] = useState({
@@ -73,6 +75,38 @@ const ProductDetails = () => {
 
     const handleLeaveImageZoom = () => {
         setZoomImage(false)
+    }
+
+    const { fetchUserAddToCart } = useContext(Context)
+
+    const handleAddToCart = async (e, id) => {
+        e?.stopPropagation()
+        e?.preventDefault()
+
+        const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
+            method: SummaryApi.addToCartProduct.method,
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    productId: id
+                }
+            )
+        })
+
+        const response = await addToCart.json()
+        fetchUserAddToCart()
+
+        if (response.success) {
+            toast(response.message)
+        }
+        if (response.error) {
+            toast.error(response.message)
+        }
+
+        return response
     }
 
     return (
