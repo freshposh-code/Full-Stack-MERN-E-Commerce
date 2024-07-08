@@ -1,12 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { Link } from 'react-router-dom'
 import SummaryApi from '../common'
+import { toast } from 'react-toastify'
+import Context from '../context'
 
 const HorizontalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const loadingList = new Array(13).fill(null)
+
+    const { fetchUserAddToCart } = useContext(Context)
 
     const fetchData = async () => {
 
@@ -31,6 +35,36 @@ const HorizontalCardProduct = ({ category, heading }) => {
     useEffect(() => {
         fetchData()
     }, [])
+
+    const handleAddToCart = async (e, id) => {
+        e?.stopPropagation()
+        e?.preventDefault()
+
+        const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
+            method: SummaryApi.addToCartProduct.method,
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    productId: id
+                }
+            )
+        })
+
+        const response = await addToCart.json()
+        fetchUserAddToCart()
+
+        if (response.success) {
+            toast(response.message)
+        }
+        if (response.error) {
+            toast.error(response.message)
+        }
+
+        return response
+    }
 
 
 
