@@ -11,7 +11,7 @@ const addToCartController = async (req, res) => {
 
         if (isProductAvailable) {
             return res.json({
-                message: "Already exits in Add to cart",
+                message: "Already exits in cart",
                 success: false,
                 error: true
             })

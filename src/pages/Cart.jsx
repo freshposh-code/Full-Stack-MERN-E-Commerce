@@ -5,6 +5,8 @@ import displayINRCurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import { setLoading } from '../store/loadingSlice'
+import { Link } from 'react-router-dom';
+import { emptybag } from '../assest/index';
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -115,17 +117,18 @@ const Cart = () => {
     }
 
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0)
-    const totalPrice = data.reduce((preve, curr) => preve + (curr.quantity * curr?.productId?.sellingPrice), 0)
+    const totalPrice = data.reduce((prev, curr) => prev + (curr.quantity * curr?.productId?.sellingPrice), 0)
     return (
-        <div className='container mx-auto'>
-
-            <div className='text-center text-lg my-3'>
-                {
-                    data.length === 0 && (
-                        <p className='bg-white py-5 font-extrabold'>No Data</p>
-                    )
-                }
-            </div>
+        <div>
+            {
+                data.length === 0 && (
+                    <div className='flex justify-center items-center min-h-screen'>
+                        <Link to='/'>
+                            <img src={emptybag} alt="emptybag" className='sm:w-80 w-52 object-cover' />
+                        </Link>
+                    </div>
+                )
+            }
 
             <div className='flex flex-col lg:flex-row gap-10 lg:justify-between p-4'>
                 {/***view product */}
@@ -138,7 +141,7 @@ const Cart = () => {
                                         <img src={product?.productId?.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply' />
                                     </div>
                                     <div className='px-4 py-2 relative'>
-                                        {/**delete product */}
+
                                         <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' onClick={() => deleteCartProduct(product?._id)}>
                                             <MdDelete />
                                         </div>
