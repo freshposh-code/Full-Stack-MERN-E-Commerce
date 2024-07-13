@@ -40,7 +40,13 @@ const Header = () => {
         }
     }
 
-    console.log('header cart count', context)
+    const handleSearch = (e) => {
+        const { value } = e.target
+
+        if (value) {
+            navigate("/search")
+        }
+    }
 
     return (
         <>
@@ -53,8 +59,8 @@ const Header = () => {
                     </div>
 
                     <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-                        <input type='text' placeholder='search product here...' className='w-full outline-none' />
-                        <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
+                        <input type='text' placeholder='search product here...' className='w-full outline-none' onChange={handleSearch} />
+                        <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white' onChange={handleSearch}>
                             <GrSearch />
                         </div>
                     </div>
@@ -129,7 +135,7 @@ const Header = () => {
                     </div>
 
                 </div>
-            </header>
+            </header >
         </>
 
     )
