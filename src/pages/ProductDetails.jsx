@@ -6,6 +6,7 @@ import { FaStarHalf } from "react-icons/fa";
 import displayINRCurrency from '../helpers/displayCurrency';
 import Context from '../context';
 import { toast } from 'react-toastify';
+import CategroyWiseProductDisplay from '../components/CategroyWiseProductDisplay';
 
 const ProductDetails = () => {
     const [data, setData] = useState({
@@ -235,11 +236,11 @@ const ProductDetails = () => {
 
 
 
-            {/* {
+            {
                 data.category && (
                     <CategroyWiseProductDisplay category={data?.category} heading={"Recommended Product"} />
                 )
-            } */}
+            }
 
 
 
