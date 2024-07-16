@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Context from '../context'
 import scrollTop from '../helpers/scrollTop'
 import SummaryApi from '../common'
+import { toast } from 'react-toastify'
 
 const CategroyWiseProductDisplay = ({ category, heading }) => {
     const [data, setData] = useState([])

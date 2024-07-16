@@ -80,6 +80,8 @@ const ProductDetails = () => {
 
     const { fetchUserAddToCart } = useContext(Context)
 
+    const navigate = useNavigate()
+
     const handleAddToCart = async (e, id) => {
         e?.stopPropagation()
         e?.preventDefault()
@@ -108,6 +110,38 @@ const ProductDetails = () => {
         }
 
         return response
+    }
+
+    const handleBuyProduct = async (e, id) => {
+        e?.stopPropagation()
+        e?.preventDefault()
+
+        const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
+            method: SummaryApi.addToCartProduct.method,
+            credentials: 'include',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    productId: id
+                }
+            )
+        })
+
+        const response = await addToCart.json()
+        fetchUserAddToCart()
+
+        if (response.success) {
+            toast(response.message)
+            navigate("/cart")
+        }
+        if (response.error) {
+            toast.error(response.message)
+        }
+
+        return response
+
     }
 
     return (
