@@ -82,3 +82,46 @@ code {
         transform: rotate(1turn)
     }
 }
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-responsive th,
+.table-responsive td {
+    padding: 8px;
+    text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+    .table-responsive thead {
+        display: none;
+    }
+
+    .table-responsive tr {
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .table-responsive td {
+        position: relative;
+        display: block;
+        text-align: left;
+        padding-left: 50%;
+    }
+
+    .table-responsive td::before {
+        content: attr(data-label);
+        position: absolute;
+        font-weight: bolder;
+        text-align: left;
+        left: 0;
+        padding-left: 15px;
+    }
+}
