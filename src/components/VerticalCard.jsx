@@ -3,6 +3,8 @@ import scrollTop from '../helpers/scrollTop'
 import displayINRCurrency from '../helpers/displayCurrency'
 import Context from '../context'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import SummaryApi from '../common'
 
 const VerticalCard = ({ loading, style, fetchProductData = [] }) => {
     const loadingList = new Array(13).fill(null)
