@@ -3,7 +3,7 @@ import loginIcons from '../assest/signin.gif'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import imagePosh64 from '../helpers/imagePosh64'
-// import SummaryApi from '../common'
+import SummaryApi from '../common'
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux'
 import { setLoading } from '../store/loadingSlice'
@@ -54,8 +54,8 @@ const SignUp = () => {
 
         if (data.password === data.confirmPassword) {
 
-            const dataResponse = await fetch('http://localhost:8080/api/signup', {
-                method: 'post',
+            const dataResponse = await fetch(SummaryApi.signUP.url, {
+                method: SummaryApi.signUP.method,
                 headers: {
                     "content-type": "application/json"
                 },
