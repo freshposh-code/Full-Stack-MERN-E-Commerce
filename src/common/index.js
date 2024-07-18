@@ -76,7 +76,15 @@ const SummaryApi = {
     filterProduct: {
         url: `${backendDomin}/api/filter-product`,
         method: 'post'
-    }
+    },
+    forgetPassword: {
+        url: `${backendDomin}/api/forgot-password`,
+        method: 'post'
+    },
+    resetPassword: {
+        url: `${backendDomin}/api/reset-password`,
+        method: 'post'
+    },
 }
 
 
