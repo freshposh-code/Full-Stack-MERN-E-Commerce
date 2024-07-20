@@ -69,7 +69,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
             <h2 className="text-2xl font-semibold py-4">{heading}</h2>
             <div className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none transition-all">
                 {loading ? (
-                    loadingList.map((_, index) => (
+                    loadingList.map((index) => (
                         <div
                             key={index}
                             className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex"
@@ -119,7 +119,23 @@ const HorizontalCardProduct = ({ category, heading }) => {
                         </Link>
                     ))
                 ) : (
-                    <p className="font-semibold text-center">No products available...</p>
+                    loadingList.map((_, index) => (
+                        <div
+                            key={index}
+                            className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex"
+                        >
+                            <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse"></div>
+                            <div className="p-4 grid w-full gap-2">
+                                <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse p-1 rounded-full"></h2>
+                                <p className="capitalize text-slate-500 p-1 bg-slate-200 animate-pulse rounded-full"></p>
+                                <div className="flex gap-3 w-full">
+                                    <p className="text-red-600 font-medium p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
+                                    <p className="text-slate-500 line-through p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
+                                </div>
+                                <button className="text-sm text-white px-3 py-0.5 rounded-full w-full bg-slate-200 animate-pulse"></button>
+                            </div>
+                        </div>
+                    ))
                 )}
             </div>
         </div>
