@@ -69,7 +69,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
             <h2 className="text-2xl font-semibold py-4">{heading}</h2>
             <div className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none transition-all">
                 {loading ? (
-                    loadingList.map((index) => (
+                    loadingList.map((_, index) => (
                         <div
                             key={index}
                             className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex"
