@@ -44,6 +44,7 @@ const AdminPanel = () => {
                     <nav className='grid p-4 font-semibold'>
                         <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
                         <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All product</Link>
+                        <Link to={"all-order"} className='px-2 py-1 hover:bg-slate-100'>All Order</Link>
                     </nav>
                 </div>
             </aside>
@@ -75,7 +76,8 @@ const AdminPanel = () => {
                 <div>
                     <nav className='grid p-4 font-semibold' onClick={() => setOpen(!open)}>
                         <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
-                        <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All product</Link>
+                        <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All Product</Link>
+                        <Link to={"all-order"} className='px-2 py-1 hover:bg-slate-100'>All Order</Link>
                     </nav>
                 </div>
             </aside>
