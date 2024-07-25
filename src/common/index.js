@@ -85,6 +85,10 @@ const SummaryApi = {
         url: `${backendDomin}/api/reset-password`,
         method: 'post'
     },
+    payment: {
+        url: `${backendDomin}/api/checkout`,
+        method: 'post'
+    },
 }
 
 
