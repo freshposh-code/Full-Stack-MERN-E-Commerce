@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setLoading } from '../store/loadingSlice'
 import { Link } from 'react-router-dom';
 import { emptybag } from '../assest/index';
+import { loadStripe } from '@stripe/stripe-js';
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -116,6 +117,28 @@ const Cart = () => {
         }
     }
 
+    const handlePayment = async () => {
+        const stripePromise = await loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY)
+        const response = await fetch(SummaryApi.payment.url, {
+            method: SummaryApi.payment.method,
+            credentials: 'include',
+            headers: {
+                "content-type": 'application/json'
+            },
+            body: JSON.stringify({
+                cartItems: data
+            })
+        })
+
+        const responseData = await response.json()
+
+        if (responseData?.id) {
+            stripePromise.redirectToCheckout({ sessionId: responseData.id })
+        }
+
+        console.log("payment response", responseData)
+    }
+
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0)
     const totalPrice = data.reduce((prev, curr) => prev + (curr.quantity * curr?.productId?.sellingPrice), 0)
     return (
@@ -165,7 +188,7 @@ const Cart = () => {
                 </div>
 
 
-                {/***summary  */}
+                {/***summary of orders */}
                 <div className='mt-5 lg:mt-0 w-full max-w-sm'>
                     {
                         <div className='h-36 bg-white'>
@@ -180,7 +203,7 @@ const Cart = () => {
                                 <p>{displayINRCurrency(totalPrice)}</p>
                             </div>
 
-                            <button className='bg-blue-600 p-2 text-white w-full mt-2'>Payment</button>
+                            <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
 
                         </div>
                     }
