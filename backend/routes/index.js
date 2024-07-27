@@ -25,9 +25,9 @@ const filterProductController = require('../controller/product/filterProduct.js'
 const forgotPasswordController = require('../controller/user/forgotPasswordController.js');
 const resetPasswordController = require('../controller/user/resetPasswordController.js');
 const paymentController = require('../controller/order/paymentController.js')
-// const webhooks = require('../controller/order/webhook')
-// const orderController = require('../controller/order/order.controller')
-// const allOrderController = require('../controller/order/allOrder.controller')
+const webhooks = require('../controller/order/webhook.js')
+const orderController = require('../controller/order/order.controller.js')
+const allOrderController = require('../controller/order/allOrder.controller')
 
 
 
@@ -62,9 +62,9 @@ router.post("/delete-cart-product", authToken, deleteAddToCartProduct)
 
 //payment and order
 router.post('/checkout', authToken, paymentController)
-// router.post('/webhook', webhooks) // /api/webhook
-// router.get("/order-list", authToken, orderController)
-// router.get("/all-order", authToken, allOrderController)
+router.post('/webhook', webhooks) // /api/webhook
+router.get("/order-list", authToken, orderController)
+router.get("/all-order", authToken, allOrderController)
 
 
 module.exports = router
