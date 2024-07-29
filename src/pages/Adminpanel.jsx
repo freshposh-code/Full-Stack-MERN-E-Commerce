@@ -4,10 +4,16 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import ROLE from '../common/role';
 import { CiMenuKebab } from "react-icons/ci";
+import { adminRoutes } from '../helpers/Data';
 
 const AdminPanel = () => {
     const user = useSelector(state => state?.user?.user);
     const [open, setOpen] = useState(false)
+    const [active, setActive] = useState(1)
+
+    const handleActiveNav = (index) => {
+        setActive(index)
+    }
 
     const navigate = useNavigate()
 
@@ -18,7 +24,7 @@ const AdminPanel = () => {
     }, [user])
 
     return (
-        <div className='min-h-[calc(100vh-120px)] flex'>
+        <div className='min-h-[calc(100vh-120px)] flex overflow-y-hidden'>
             {/* DESKTOP/TAB VIEW */}
             <aside className='bg-white min-h-full w-full max-w-60 customShadow sm:flex hidden flex-col'>
                 <div className='h-32 flex justify-center items-center flex-col'>
@@ -41,18 +47,19 @@ const AdminPanel = () => {
 
                 {/***navigation */}
                 <div>
-                    <nav className='grid p-4 font-semibold'>
-                        <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
-                        <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All product</Link>
-                        <Link to={"all-order"} className='px-2 py-1 hover:bg-slate-100'>All Order</Link>
+                    <nav className='p-4 font-semibold flex flex-col'>
+                        {adminRoutes.map((el, index) => (
+                            <Link to={el.route} className={`${index === active ? "bg-red-600 text-white" : ""} hover:bg-red-600 hover:text-white px-2 my-2 py-2 rounded-lg`} onClick={() => handleActiveNav(index)}>{el.name}</Link>
+
+                        ))}
                     </nav>
                 </div>
-            </aside>
+            </aside >
 
             {/* MOBILE MENU RESPONSIVENESS */}
-            <span>
-                <CiMenuKebab onClick={() => setOpen((prev => !prev))} className='absolute my-5 text-3xl text-red-950 md:hidden flex' />
-            </span>
+            < span >
+                <CiMenuKebab onClick={() => setOpen((prev => !prev))} className='absolute my-5 text-3xl text-red-950 md:hidden flex z-10' />
+            </span >
             <aside className={`bg-white min-h-full w-full max-w-60 customShadow sm:hidden flex flex-col ${open ? 'hidden' : 'flex'}`}>
                 <div className='h-32 flex justify-center items-center flex-col'>
                     <div className='text-5xl cursor-pointer relative flex justify-center'>
@@ -75,17 +82,17 @@ const AdminPanel = () => {
                 {/***navigation */}
                 <div>
                     <nav className='grid p-4 font-semibold' onClick={() => setOpen(!open)}>
-                        <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
-                        <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All Product</Link>
-                        <Link to={"all-order"} className='px-2 py-1 hover:bg-slate-100'>All Order</Link>
+                        {adminRoutes.map((el, index) => (
+                            <Link to={el.route} className={`${index === active ? "bg-red-600 text-white" : ""} px-2 py-1 hover:bg-slate-100 sm:text-lg text-base rounded-lg my-2`} onClick={() => handleActiveNav(index)}>{el.name}</Link>
+                        ))}
                     </nav>
                 </div>
-            </aside>
+            </aside >
 
             <main className='w-full h-full p-2'>
                 <Outlet />
             </main>
-        </div>
+        </div >
     )
 }
 

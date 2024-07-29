@@ -18,3 +18,18 @@ export const swiperImages = [
         image: `https://linkusuponline.com/wp-content/uploads/2019/08/e-commerce-banner-1024x341.jpg`
     },
 ]
+
+export const adminRoutes = [
+    {
+        name: 'All Users',
+        route: 'all-users',
+    },
+    {
+        name: 'All Product',
+        route: 'all-products',
+    },
+    {
+        name: 'All Order',
+        route: 'all-order',
+    },
+]
