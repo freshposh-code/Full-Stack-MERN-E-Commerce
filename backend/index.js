@@ -11,7 +11,7 @@ require('dotenv').config();
 const app = express()
 app.use(cors(
     {
-        origin: 'http://localhost:5173', // Specify the frontend URL
+        origin: process.env.REACT_VITE_APP_FRONTEND_URL, // Specify the frontend URL
         credentials: true,               // Allow credentials (cookies, HTTP auth)
     }
 ))
