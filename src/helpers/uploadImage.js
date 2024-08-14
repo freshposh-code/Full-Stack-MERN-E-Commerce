@@ -1,4 +1,4 @@
-const url = `https://api.cloudinary.com/v1_1/dzsmwdpk7/image/upload`
+const url = `https://api.cloudinary.com/v1_1/${import.meta.env.dzsmwdpk7}/image/upload`
 
 const uploadImage = async (image) => {
     const formData = new FormData()
