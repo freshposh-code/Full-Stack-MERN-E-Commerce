@@ -9,12 +9,14 @@ require('dotenv').config();
 
 
 const app = express()
-app.use(cors(
-    {
-        origin: process.env.REACT_VITE_APP_FRONTEND_URL, // Specify the frontend URL
-        credentials: true,               // Allow credentials (cookies, HTTP auth)
-    }
-))
+app.use(cors({
+    origin: [
+        process.env.REACT_VITE_APP_FRONTEND_URL, // Local development URL
+        'https://fullecommerceposhstore.vercel.app', // Production URL
+    ],
+    credentials: true,
+}));
+
 app.use(express.json())
 app.use(cookieParser())
 
