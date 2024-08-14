@@ -1,4 +1,4 @@
-const backendDomain = import.meta.env.VITE_APP_BACKEND_URL;
+const backendDomain = import.meta.env.VITE_APP_BACKEND_URL.replace(/\/$/, "");
 
 const SummaryApi = {
     signUP: {
@@ -99,5 +99,4 @@ const SummaryApi = {
     },
 }
 
-
-export default SummaryApi
+export default SummaryApi;
