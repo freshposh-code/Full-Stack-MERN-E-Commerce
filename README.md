@@ -26,8 +26,8 @@ This project is a full-stack ecommerce application built with [Vite](https://vit
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/ecommerce-app.git
-    cd ecommerce-app/backend
+    https://github.com/freshposh-code/Full-Stack-MERN-E-Commerce.git
+    cd backend
     ```
 
 2. Install dependencies:
