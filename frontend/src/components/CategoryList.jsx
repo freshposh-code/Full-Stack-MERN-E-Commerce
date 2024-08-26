@@ -12,7 +12,12 @@ const CategoryList = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(SummaryApi.categoryProduct.url);
+            const response = await fetch(SummaryApi.categoryProduct.url, {
+                headers: {
+                    "Content-Type": "application/json",
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
             const dataResponse = await response.json();
 
             setCategoryProduct(dataResponse.data);
