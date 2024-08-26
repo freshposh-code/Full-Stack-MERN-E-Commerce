@@ -49,7 +49,6 @@ const CategroyWiseProductDisplay = ({ category, heading }) => {
             method: SummaryApi.categoryWiseProduct.method,
             headers: {
                 "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify({
                 category: category

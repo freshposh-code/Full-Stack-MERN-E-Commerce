@@ -15,7 +15,6 @@ const CategoryList = () => {
             const response = await fetch(SummaryApi.categoryProduct.url, {
                 headers: {
                     "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin': '*',
                 },
             });
             const dataResponse = await response.json();
