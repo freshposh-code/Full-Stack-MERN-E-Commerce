@@ -48,7 +48,8 @@ const CategroyWiseProductDisplay = ({ category, heading }) => {
         const fetchCategoryWiseProduct = await fetch(SummaryApi.categoryWiseProduct.url, {
             method: SummaryApi.categoryWiseProduct.method,
             headers: {
-                'content-type': 'application/json'
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify({
                 category: category
