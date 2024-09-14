@@ -11,8 +11,10 @@ app.use(cors({
     origin: [
         process.env.REACT_VITE_APP_FRONTEND_URL, // Local development URL
         'https://poshstore.vercel.app', // Production URL (no trailing slash)
+        'https://poshstore1.vercel.app' // Add this line to allow requests from poshstore1.vercel.app
     ],
     credentials: true,
+    headers: ['Content-Type', 'Authorization'] // Add this line to specify allowed headers
 }));
 
 app.use(express.json())
