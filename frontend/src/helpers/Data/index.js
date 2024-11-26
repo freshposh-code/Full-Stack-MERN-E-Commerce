@@ -15,7 +15,7 @@ export const swiperImages = [
         image: `https://static.vecteezy.com/system/resources/thumbnails/011/871/814/small/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg`
     },
     {
-        image: `https://linkusuponline.com/wp-content/uploads/2019/08/e-commerce-banner-1024x341.jpg`
+        image: `https://previews.123rf.com/images/arrow/arrow1508/arrow150800011/43834601-online-shopping-e-commerce-flat-design-concept-banner-background.jpg`
     },
 ]
 
