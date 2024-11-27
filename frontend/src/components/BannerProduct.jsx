@@ -28,7 +28,7 @@ const BannerProduct = () => {
                     modules={[Navigation, Pagination, Keyboard, Autoplay]}
                 >
                     {swiperImages.map((el) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={el.image}>
                             <img src={el.image} alt="banner" className='w-full sm:h-[30rem] h-28 object-cover' />
                         </SwiperSlide>
                     ))}
