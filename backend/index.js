@@ -8,7 +8,7 @@ const router = require('./routes')
 
 const app = express()
 app.use(cors({
-    origin : process.env.REACT_VITE_APP_FRONTEND_URL,
+    origin : process.env.VITE_APP_FRONTEND_URL,
     credentials : true
 }))
 app.use(express.json())
