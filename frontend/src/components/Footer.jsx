@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className='bg-slate-200'>
             <div className='container mx-auto p-4'>
-                <p className='text-center font-bold' title="Github Repo">Dynamic Coding with PoshCode</p>
+                <p className='text-center font-bold' title="Github Repo">Code with PoshCode</p>
             </div>
         </footer>
     )
