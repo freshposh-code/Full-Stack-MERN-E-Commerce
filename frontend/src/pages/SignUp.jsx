@@ -84,7 +84,7 @@ const SignUp = () => {
 
             <div className='sm:pt-16 pt-0 flex justify-center items-center min-h-screen'>
 
-                <div className='bg-white p-5 w-full max-w-sm'>
+                <div className='bg-white p-5 w-full max-w-sm rounded-md'>
                     <div className='w-20 h-20 mx-auto relative overflow-hidden rounded-full'>
                         <div>
                             <img src={data.profilePic || loginIcons} alt='login icons' />
@@ -103,7 +103,7 @@ const SignUp = () => {
                     <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
                         <div className='grid'>
                             <label>Name</label>
-                            <div className='bg-slate-100 p-2'>
+                            <div className='bg-slate-100 p-2 rounded-md'>
                                 <input
                                     type='text'
                                     placeholder='enter name'
@@ -116,7 +116,7 @@ const SignUp = () => {
                         </div>
                         <div className='grid'>
                             <label>Email</label>
-                            <div className='bg-slate-100 p-2'>
+                            <div className='bg-slate-100 p-2 rounded-md'>
                                 <input
                                     type='email'
                                     placeholder='enter email'
@@ -130,7 +130,7 @@ const SignUp = () => {
 
                         <div>
                             <label>Password</label>
-                            <div className='bg-slate-100 p-2 flex'>
+                            <div className='bg-slate-100 p-2 rounded-md flex'>
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     placeholder='enter password'
@@ -158,7 +158,7 @@ const SignUp = () => {
 
                         <div>
                             <label>Confirm Password</label>
-                            <div className='bg-slate-100 p-2 flex'>
+                            <div className='bg-slate-100 p-2 rounded-md flex'>
                                 <input
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder='enter confirm password'
