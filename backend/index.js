@@ -7,20 +7,21 @@ const router = require('./routes')
 
 
 const app = express()
-
-const allowedOrigins = [
-    'http://localhost:5173',  // Local development
-    'https://poshstore.vercel.app', // Production frontend
-];
-
 app.use(cors({
-    origin: (origin, callback) => {
-        // Check if the incoming origin is in the allowed list
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-}));
+    origin : process.env.VITE_APP_FRONTEND_URL,
+    credentials : true
+}))
+app.use(express.json())
+app.use(cookieParser())
+
+app.use("/api",router)
+
+const PORT = 8080 || process.env.PORT
+
+
+connectDB().then(() =>{
+    app.listen(PORT,() =>{
+        console.log("connnect to DB")
+        console.log("Server is running on PORT "+PORT)
+    })
+})
