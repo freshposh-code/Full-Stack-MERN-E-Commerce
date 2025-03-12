@@ -9,7 +9,6 @@ const router = require('./routes')
 const app = express()
 app.use(cors({
     origin: function(origin, callback) {
-        // Normalize origins by removing trailing slash if present
         const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
         const allowedOrigins = [
             'http://localhost:5173',
