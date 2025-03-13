@@ -26,13 +26,13 @@ async function userSignInController(req, res) {
                 _id: user._id,
                 email: user.email,
             };
-            const token = await jwt.sign(tokenData, process.env.REACT_VITE_APP_TOKEN_SECRET_KEY, { expiresIn: '7d' });
+            const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY , { expiresIn: '7d' });
 
             const tokenOption = {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production', // Set to true in production
-                sameSite: 'Strict', // Adjust according to your needs (Lax, None, or Strict)
-                maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+                secure: true,
+                sameSite: 'none',
+                maxAge: 7 * 24 * 60 * 60 * 1000
             };
 
             res.cookie("token", token, tokenOption).status(200).json({
