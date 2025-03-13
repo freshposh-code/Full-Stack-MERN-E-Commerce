@@ -12,7 +12,7 @@ async function authToken(req, res, next) {
             })
         }
 
-        jwt.verify(token, process.env.REACT_VITE_APP_TOKEN_SECRET_KEY, function (err, decoded) {
+        jwt.verify(token, process.env.JWT_SECRET_KEY , function (err, decoded) {
             if (err) {
                 return res.status(403).json({
                     message: "Invalid token",
