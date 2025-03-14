@@ -29,7 +29,7 @@ const BannerProduct = () => {
                 >
                     {swiperImages.map((el) => (
                         <SwiperSlide key={el.image}>
-                            <img src={el.image} alt="banner" className='w-full sm:h-[30rem] h-28 object-cover' />
+                            <img src={el.image} alt="banner" className='w-full sm:h-[30rem] h-28 object-cover rounded-2xl' />
                         </SwiperSlide>
                     ))}
                 </Swiper>
