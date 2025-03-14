@@ -12,23 +12,48 @@ import Loader from './components/Loader';
 
 const App = () => {
   const dispatch = useDispatch();
-  const [cartProductCount, setCartProductCount] = useState(0)
+  const [cartProductCount, setCartProductCount] = useState(0);
 
   const fetchUserDetails = async () => {
-    const dataResponse = await fetch(SummaryApi.current_user.url, {
-      method: SummaryApi.current_user.method,
-      credentials: 'include'
-    })
-
-    const dataApi = await dataResponse.json()
-
-    if (dataApi.success) {
-      dispatch(setUserDetails(dataApi.data))
+    try {
+      // Helper function to check if browser is Safari
+      const isSafari = () => {
+        const ua = navigator.userAgent.toLowerCase();
+        return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
+      };
+  
+      let response;
+      
+      if (isSafari()) {
+        // Safari approach - use Authorization header
+        const token = localStorage.getItem('authToken');
+        response = await fetch(SummaryApi.current_user.url, {
+          method: SummaryApi.current_user.method,
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      } else {
+        // Standard approach for other browsers - use cookies
+        response = await fetch(SummaryApi.current_user.url, {
+          method: SummaryApi.current_user.method,
+          credentials: 'include'
+        });
+      }
+  
+      const dataApi = await response.json();
+  
+      if (dataApi.success) {
+        dispatch(setUserDetails(dataApi.data));
+      }
+  
+      console.log('data-user', response);
+  
+      return dataApi;
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      return { success: false, error: true, message: 'Failed to fetch user details' };
     }
-
-    console.log('data-user', dataResponse)
-
-    // setCartProductCount(dataApi?.data?.count)
   }
 
   const fetchUserAddToCart = async () => {
