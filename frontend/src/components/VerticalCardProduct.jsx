@@ -10,7 +10,7 @@ const VerticalCardProduct = ({ category, heading }) => {
     const [loading, setLoading] = useState(true);
     const loadingList = new Array(13).fill(null);
 
-    const { fetchUserAddToCart } = useContext(Context);
+    const { fetchUserAddToCart, authenticatedFetch } = useContext(Context);
 
     const fetchData = async () => {
         setLoading(true);
@@ -43,7 +43,7 @@ const VerticalCardProduct = ({ category, heading }) => {
         e?.preventDefault();
 
         try {
-            const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
+            const addToCart = await authenticatedFetch (SummaryApi.addToCartProduct.url, {
                 method: SummaryApi.addToCartProduct.method,
                 credentials: 'include',
                 headers: {
@@ -95,7 +95,7 @@ const VerticalCardProduct = ({ category, heading }) => {
                                 key={index}
                                 className='w-full min-w-[200px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow'
                             >
-                                <div className='bg-slate-200 h-40 p-4 min-w-[200px] md:min-w-[145px] flex justify-center items-center'>
+                                <div className='bg-slate-200 h-40 p-4 min-w-[200px] md:min-w-[145px] flex justify-center items-center rounded-sm'>
                                     <img
                                         src={product.productImage[0]}
                                         className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'

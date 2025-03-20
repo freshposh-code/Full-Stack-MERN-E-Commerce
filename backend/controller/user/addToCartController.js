@@ -3,9 +3,8 @@ const addToCartModel = require("../../models/cartProduct");
 const addToCartController = async (req, res) => {
     try {
         const { productId } = req.body;
-        const currentUser = req.userId; // Assuming req.userId is set correctly
+        const currentUser = req.userId; 
 
-        // Check if the product already exists in the current user's cart
         const isProductAvailable = await addToCartModel.findOne({ productId, userId: currentUser });
 
         if (isProductAvailable) {
@@ -16,7 +15,6 @@ const addToCartController = async (req, res) => {
             });
         }
 
-        // If not, add the product to the cart
         const payload = {
             productId: productId,
             quantity: 1,
