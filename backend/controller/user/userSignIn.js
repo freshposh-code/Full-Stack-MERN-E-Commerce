@@ -26,7 +26,7 @@ async function userSignInController(req, res) {
                 _id: user._id,
                 email: user.email,
             };
-            const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY , { expiresIn: '7d' });
+            const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
 
             const tokenOption = {
                 httpOnly: true,
@@ -35,9 +35,20 @@ async function userSignInController(req, res) {
                 maxAge: 7 * 24 * 60 * 60 * 1000
             };
 
-            res.cookie("token", token, tokenOption).status(200).json({
+            // For regular browsers, set the cookie
+            res.cookie("token", token, tokenOption);
+
+            // Return response with token that frontend can use for Safari
+            return res.status(200).json({
                 message: "Login successfully",
-                data: token,
+                data: {
+                    user: {
+                        _id: user._id,
+                        email: user.email,
+                        // Include other non-sensitive user data you need
+                    }
+                },
+                token: token, // Explicitly include token for Safari to store in localStorage
                 success: true,
                 error: false
             });

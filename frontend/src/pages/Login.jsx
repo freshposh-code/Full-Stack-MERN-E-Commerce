@@ -35,27 +35,44 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(setLoading(true));
-
-        const dataResponse = await fetch(SummaryApi.signIn.url, {
-            method: SummaryApi.signIn.method,
-            credentials: 'include',
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        const dataApi = await dataResponse.json();
-        dispatch(setLoading(false));
-
-        if (dataApi.success) {
-            toast.success(dataApi.message)
-            navigate('/')
-            fetchUserDetails();
-            fetchUserAddToCart();
-        }
-        if (dataApi.error) {
-            toast.error(dataApi.message)
+    
+        try {
+            const dataResponse = await fetch(SummaryApi.signIn.url, {
+                method: SummaryApi.signIn.method,
+                credentials: 'include',
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+    
+            const dataApi = await dataResponse.json();
+    
+            if (dataApi.success) {
+                const isSafari = () => {
+                    const ua = navigator.userAgent.toLowerCase();
+                    return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
+                };
+                
+                if (isSafari() && dataApi.token) {
+                    localStorage.setItem('authToken', dataApi.token);
+                }
+    
+                toast.success(dataApi.message);
+                navigate('/');
+                
+                await fetchUserDetails();
+                await fetchUserAddToCart();
+            }
+            
+            if (dataApi.error) {
+                toast.error(dataApi.message);
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            toast.error("An error occurred during login");
+        } finally {
+            dispatch(setLoading(false));
         }
     };
 
