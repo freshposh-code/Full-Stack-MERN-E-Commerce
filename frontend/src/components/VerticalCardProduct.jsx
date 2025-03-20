@@ -10,7 +10,7 @@ const VerticalCardProduct = ({ category, heading }) => {
     const [loading, setLoading] = useState(true);
     const loadingList = new Array(13).fill(null);
 
-    const { fetchUserAddToCart, authenticatedFetch } = useContext(Context);
+    const { fetchUserAddToCart } = useContext(Context);
 
     const fetchData = async () => {
         setLoading(true);
@@ -43,7 +43,7 @@ const VerticalCardProduct = ({ category, heading }) => {
         e?.preventDefault();
 
         try {
-            const addToCart = await authenticatedFetch (SummaryApi.addToCartProduct.url, {
+            const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
                 method: SummaryApi.addToCartProduct.method,
                 credentials: 'include',
                 headers: {
