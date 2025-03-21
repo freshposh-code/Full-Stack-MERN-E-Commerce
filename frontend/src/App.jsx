@@ -8,6 +8,7 @@ import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
 import Loader from './components/Loader';
+import { makeAuthenticatedRequest } from './helpers/AuthenticatedRequest';
 
 
 const App = () => {
@@ -16,15 +17,10 @@ const App = () => {
 
   const fetchUserDetails = async () => {
 
-      const response = await fetch (SummaryApi.current_user.url, {
-          method: SummaryApi.current_user.method,
-          credentials: 'include',
-          headers: {
-            'Content-type' : 'application/json'
-          }
-        });
-  
-      const dataApi = await response.json();
+      const response = await makeAuthenticatedRequest (
+        SummaryApi.current_user.url,
+        SummaryApi.current_user.method,
+        );
   
       if (dataApi.success) {
         dispatch(setUserDetails(dataApi.data));
@@ -36,40 +32,15 @@ const App = () => {
   }
 
   const fetchUserAddToCart = async () => {
-    const dataResponse = await fetch(SummaryApi.addToCartProductCount.url, {
-      method: SummaryApi.addToCartProductCount.method,
-      credentials: 'include'
-    })
+    const dataResponse = await makeAuthenticatedRequest(
+      SummaryApi.addToCartProductCount.url, 
+      SummaryApi.addToCartProductCount.method,
+    )
 
-    const dataApi = await dataResponse.json()
-
-    console.log('add to cart product', dataApi)
+    console.log('add to cart product', dataResponse)
 
     setCartProductCount(dataApi?.data?.count)
   }
-  //   const isSafari = () => {
-  //     const ua = navigator.userAgent.toLowerCase();
-  //     return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
-  //   };
-
-  //   const requestOptions = { ...options };
-  //   requestOptions.headers = { 
-  //     'Content-Type': 'application/json',
-  //     ...(options.headers || {})
-  //   };
-
-  //   if (isSafari()) {
-  //     const token = localStorage.getItem('authToken');
-  //     if (token) {
-  //       requestOptions.headers.Authorization = `Bearer ${token}`;
-  //     }
-  //   } else {
-  //     requestOptions.credentials = 'include';
-  //   }
-
-  //   const response = await fetch(url, requestOptions);
-  //   return response.json();
-  // };
 
   useEffect(() => {
     fetchUserDetails()
