@@ -17,7 +17,7 @@ const App = () => {
 
   const fetchUserDetails = async () => {
 
-      const response = await makeAuthenticatedRequest (
+      const dataApi = await makeAuthenticatedRequest (
         SummaryApi.current_user.url,
         SummaryApi.current_user.method,
         );
@@ -26,7 +26,7 @@ const App = () => {
         dispatch(setUserDetails(dataApi.data));
       }
   
-      console.log('data-user', response);
+      console.log('data-user', dataApi);
   
       return dataApi;
   }
@@ -39,7 +39,7 @@ const App = () => {
 
     console.log('add to cart product', dataResponse)
 
-    setCartProductCount(dataApi?.data?.count)
+    setCartProductCount(dataResponse?.data?.count)
   }
 
   useEffect(() => {
