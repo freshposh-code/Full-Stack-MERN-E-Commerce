@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import Context from '../context';
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
 
 const HorizontalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([]);
@@ -42,16 +43,12 @@ const HorizontalCardProduct = ({ category, heading }) => {
         e?.preventDefault();
 
         try {
-            const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
-                method: SummaryApi.addToCartProduct.method,
-                credentials: 'include',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify({ productId: id }),
-            });
+            const response = await makeAuthenticatedRequest(
+                SummaryApi.addToCartProduct.url,
+                SummaryApi.addToCartProduct.method,
+                ({ productId: id }),
+            );
 
-            const response = await addToCart.json();
             fetchUserAddToCart();
 
             if (response.success) {
