@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
 import Context from '../context';
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
 
 const VerticalCardProduct = ({ category, heading }) => {
     const [data, setData] = useState([]);
@@ -42,22 +43,13 @@ const VerticalCardProduct = ({ category, heading }) => {
         e?.stopPropagation();
         e?.preventDefault();
         
-        const token = localStorage.getItem('authToken');
-        
         try {
-            const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
-                method: SummaryApi.addToCartProduct.method,
-                credentials: 'include', 
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache',
-                    'Pragma': 'no-cache',
-                    ...(token && {'Authorization': `Bearer ${token}`}) 
-                },
-                body: JSON.stringify({ productId: id })
-            });
+            const addToCart = await makeAuthenticatedRequest(
+            SummaryApi.addToCartProduct.url,
+            SummaryApi.addToCartProduct.method,   
+            ({ productId: id })
+            );
     
-            const response = await addToCart.json();
             fetchUserAddToCart();
     
             if (response.success) {
