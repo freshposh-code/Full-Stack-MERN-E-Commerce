@@ -41,20 +41,25 @@ const VerticalCardProduct = ({ category, heading }) => {
     const handleAddToCart = async (e, id) => {
         e?.stopPropagation();
         e?.preventDefault();
-
+        
+        const token = localStorage.getItem('authToken');
+        
         try {
             const addToCart = await fetch(SummaryApi.addToCartProduct.url, {
                 method: SummaryApi.addToCartProduct.method,
-                credentials: 'include',
+                credentials: 'include', 
                 headers: {
-                    'content-type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    ...(token && {'Authorization': `Bearer ${token}`}) 
                 },
                 body: JSON.stringify({ productId: id })
             });
-
+    
             const response = await addToCart.json();
             fetchUserAddToCart();
-
+    
             if (response.success) {
                 toast(response.message);
             } else if (response.error) {
