@@ -15,31 +15,14 @@ const App = () => {
   const [cartProductCount, setCartProductCount] = useState(0);
 
   const fetchUserDetails = async () => {
-    try {
-      // Helper function to check if browser is Safari
-      const isSafari = () => {
-        const ua = navigator.userAgent.toLowerCase();
-        return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
-      };
-  
-      let response;
-      
-      if (isSafari()) {
-        // Safari approach - use Authorization header
-        const token = localStorage.getItem('authToken');
-        response = await fetch(SummaryApi.current_user.url, {
+
+      const response = await fetch (SummaryApi.current_user.url, {
           method: SummaryApi.current_user.method,
+          credentials: 'include',
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Content-type' : 'application/json'
           }
         });
-      } else {
-        // Standard approach for other browsers - use cookies
-        response = await fetch(SummaryApi.current_user.url, {
-          method: SummaryApi.current_user.method,
-          credentials: 'include'
-        });
-      }
   
       const dataApi = await response.json();
   
@@ -50,10 +33,6 @@ const App = () => {
       console.log('data-user', response);
   
       return dataApi;
-    } catch (error) {
-      console.error('Error fetching user details:', error);
-      return { success: false, error: true, message: 'Failed to fetch user details' };
-    }
   }
 
   const fetchUserAddToCart = async () => {
@@ -68,13 +47,33 @@ const App = () => {
 
     setCartProductCount(dataApi?.data?.count)
   }
+  //   const isSafari = () => {
+  //     const ua = navigator.userAgent.toLowerCase();
+  //     return ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1;
+  //   };
+
+  //   const requestOptions = { ...options };
+  //   requestOptions.headers = { 
+  //     'Content-Type': 'application/json',
+  //     ...(options.headers || {})
+  //   };
+
+  //   if (isSafari()) {
+  //     const token = localStorage.getItem('authToken');
+  //     if (token) {
+  //       requestOptions.headers.Authorization = `Bearer ${token}`;
+  //     }
+  //   } else {
+  //     requestOptions.credentials = 'include';
+  //   }
+
+  //   const response = await fetch(url, requestOptions);
+  //   return response.json();
+  // };
 
   useEffect(() => {
-    /**user Details */
     fetchUserDetails()
-    /**user Details cart product */
     fetchUserAddToCart()
-
   }, [])
 
   return (
