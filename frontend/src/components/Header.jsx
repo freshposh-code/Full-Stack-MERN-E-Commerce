@@ -36,7 +36,7 @@ const Header = () => {
         if (data.success) {
             toast.success(data.message)
             dispatch(setUserDetails(null))
-            navigate("/")
+            navigate("/login")
         }
 
         if (data.error) {
