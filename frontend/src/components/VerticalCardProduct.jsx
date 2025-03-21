@@ -44,7 +44,7 @@ const VerticalCardProduct = ({ category, heading }) => {
         e?.preventDefault();
         
         try {
-            const addToCart = await makeAuthenticatedRequest(
+            const response = await makeAuthenticatedRequest(
             SummaryApi.addToCartProduct.url,
             SummaryApi.addToCartProduct.method,   
             ({ productId: id })
