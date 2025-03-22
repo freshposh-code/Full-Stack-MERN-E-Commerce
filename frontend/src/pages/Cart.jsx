@@ -8,6 +8,7 @@ import { setLoading } from '../store/loadingSlice'
 import { Link } from 'react-router-dom';
 import { emptybag } from '../assest/index';
 import { loadStripe } from '@stripe/stripe-js';
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -18,23 +19,17 @@ const Cart = () => {
 
         dispatch(setLoading(true))
 
-        const response = await fetch(SummaryApi.addToCartProductView.url, {
-            method: SummaryApi.addToCartProductView.method,
-            credentials: 'include',
-            headers: {
-                "content-type": 'application/json'
-            },
-        })
+        const response = await makeAuthenticatedRequest(
+            SummaryApi.addToCartProductView.url,
+            SummaryApi.addToCartProductView.method)
 
-
-        const responseData = await response.json()
         dispatch(setLoading(false))
 
-        if (responseData.success) {
-            setData(responseData.data)
+        if (response.success) {
+            setData(response.data)
         }
 
-        console.log("productView", responseData)
+        console.log("productView", response)
     }
 
     const handleLoading = async () => {
@@ -48,23 +43,16 @@ const Cart = () => {
 
     const increaseQty = async (id, qty) => {
 
-        const response = await fetch(SummaryApi.updateCartProduct.url, {
-            method: SummaryApi.updateCartProduct.method,
-            credentials: 'include',
-            headers: {
-                "content-type": 'application/json'
-            },
-            body: JSON.stringify(
+        const response = await makeAuthenticatedRequest(
+             SummaryApi.updateCartProduct.url, 
+             SummaryApi.updateCartProduct.method,
                 {
                     _id: id,
                     quantity: qty + 1
                 }
-            )
-        })
+        )
 
-        const responseData = await response.json()
-
-        if (responseData.success) {
+        if (response.success) {
             fetchData()
         }
     }
@@ -72,46 +60,25 @@ const Cart = () => {
 
     const decraseQty = async (id, qty) => {
         if (qty >= 2) {
-            const response = await fetch(SummaryApi.updateCartProduct.url, {
-                method: SummaryApi.updateCartProduct.method,
-                credentials: 'include',
-                headers: {
-                    "content-type": 'application/json'
-                },
-                body: JSON.stringify(
-                    {
-                        _id: id,
-                        quantity: qty - 1
-                    }
-                )
-            })
-
-            const responseData = await response.json()
+            const response = await makeAuthenticatedRequest(
+                SummaryApi.updateCartProduct.url,
+                SummaryApi.updateCartProduct.method,
+                { _id: id, quantity: qty - 1 })
 
 
-            if (responseData.success) {
+            if (response.success) {
                 fetchData()
             }
         }
     }
 
     const deleteCartProduct = async (id) => {
-        const response = await fetch(SummaryApi.deleteCartProduct.url, {
-            method: SummaryApi.deleteCartProduct.method,
-            credentials: 'include',
-            headers: {
-                "content-type": 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    _id: id,
-                }
-            )
-        })
+        const response = await makeAuthenticatedRequest(
+            SummaryApi.deleteCartProduct.url,
+            SummaryApi.deleteCartProduct.method,
+            ({ _id: id, }))
 
-        const responseData = await response.json()
-
-        if (responseData.success) {
+        if (response.success) {
             fetchData()
             context.fetchUserAddToCart()
         }
@@ -192,7 +159,7 @@ const Cart = () => {
                 <div className='mt-5 lg:mt-0 w-full max-w-sm'>
                     {
                         <div className='h-36 bg-white'>
-                            <h2 className='text-white bg-red-600 px-4 py-1'>Summary</h2>
+                            <h2 className='text-white bg-red-600 px-4 py-1 rounded-md'>Summary</h2>
                             <div className='flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600'>
                                 <p>Quantity</p>
                                 <p>{totalQty}</p>
@@ -203,7 +170,7 @@ const Cart = () => {
                                 <p>{displayINRCurrency(totalPrice)}</p>
                             </div>
 
-                            <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
+                            <button className='bg-blue-600 p-2 text-white w-full mt-2 rounded-md' onClick={handlePayment}>Payment</button>
 
                         </div>
                     }
