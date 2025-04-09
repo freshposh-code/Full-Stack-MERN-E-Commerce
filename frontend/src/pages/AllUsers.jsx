@@ -6,6 +6,7 @@ import { MdModeEdit } from "react-icons/md";
 import ChangeUserRole from '../components/ChangeUserRole';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '../store/loadingSlice'
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
 
 const AllUsers = () => {
     const [allUser, setAllUsers] = useState([])
@@ -22,20 +23,19 @@ const AllUsers = () => {
 
         dispatch(setLoading(true))
 
-        const fetchData = await fetch(SummaryApi.allUser.url, {
-            method: SummaryApi.allUser.method,
-            credentials: 'include'
-        })
+        const fetchData = await makeAuthenticatedRequest(
+            SummaryApi.allUser.url,
+            SummaryApi.allUser.method,
+        )
 
-        const dataResponse = await fetchData.json();
         dispatch(setLoading(false))
 
-        if (dataResponse.success) {
-            setAllUsers(dataResponse.data)
+        if (fetchData.success) {
+            setAllUsers(fetchData.data)
         }
 
-        if (dataResponse.error) {
-            toast.error(dataResponse.message)
+        if (fetchData.error) {
+            toast.error(fetchData.message)
         }
 
     }

@@ -3,6 +3,7 @@ import ROLE from '../common/role'
 import { IoMdClose } from "react-icons/io";
 import SummaryApi from '../common';
 import { toast } from 'react-toastify';
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
 
 const ChangeUserRole = ({
     name,
@@ -21,27 +22,22 @@ const ChangeUserRole = ({
     }
 
     const updateUserRole = async () => {
-        const fetchResponse = await fetch(SummaryApi.updateUser.url, {
-            method: SummaryApi.updateUser.method,
-            credentials: 'include',
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
+        const fetchResponse = await makeAuthenticatedRequest(
+             SummaryApi.updateUser.url, 
+             SummaryApi.updateUser.method,
+           {
                 userId: userId,
                 role: userRole
-            })
-        })
+            }
+        )
 
-        const responseData = await fetchResponse.json()
-
-        if (responseData.success) {
-            toast.success(responseData.message)
+        if (fetchResponse.success) {
+            toast.success(fetchResponse.message)
             onClose()
             callFunc()
         }
 
-        console.log("role updated", responseData)
+        console.log("role updated", fetchResponse)
 
     }
 
