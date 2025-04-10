@@ -4,6 +4,7 @@ import moment from 'moment'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { useDispatch } from 'react-redux'
 import { setLoading } from '../store/loadingSlice'
+import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest'
 
 const Order = () => {
     const [data, setData] = useState([])
@@ -12,16 +13,15 @@ const Order = () => {
     const fetchOrderDetails = async () => {
         dispatch(setLoading(true))
 
-        const response = await fetch(SummaryApi.getOrder.url, {
-            method: SummaryApi.getOrder.method,
-            credentials: 'include'
-        })
+        const response = await makeAuthenticatedRequest(
+            SummaryApi.getOrder.url, 
+            SummaryApi.getOrder.method,
+        )
 
-        const responseData = await response.json()
         dispatch(setLoading(false))
 
-        setData(responseData.data)
-        console.log("order list", responseData)
+        setData(response.data)
+        console.log("order list", response)
     }
 
     useEffect(() => {
