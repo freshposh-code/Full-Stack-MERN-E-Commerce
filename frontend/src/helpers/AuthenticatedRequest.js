@@ -7,15 +7,21 @@ export const makeAuthenticatedRequest = async (url, method, body = null) => {
     
     const options = {
         method: method,
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache, no-store, must-revalidate', 
             'Pragma': 'no-cache',
-            'Expires': '0', 
-            ...(token && {'Authorization': `Bearer ${token}`})
+            'Expires': '0'
         }
     };
+
+    if (!navigator.userAgent.includes('Safari') || navigator.userAgent.includes('Chrome')) {
+        options.credentials = 'include';
+    }
+
+    if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
+    }
 
     if (body) {
         options.body = JSON.stringify(body);
