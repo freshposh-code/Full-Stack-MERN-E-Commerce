@@ -5,10 +5,14 @@ require('dotenv').config()
 const connectDB = require('./config/db')
 const router = require('./routes')
 
-
 const app = express()
 app.use(cors({
     origin: function(origin, callback) {
+        // Handle if origin is null
+        if (!origin) {
+            return callback(null, true);
+        }
+        
         const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
         const allowedOrigins = [
             'http://localhost:5173',
@@ -23,7 +27,8 @@ app.use(cors({
         }
     },
     credentials: true
-}))
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
