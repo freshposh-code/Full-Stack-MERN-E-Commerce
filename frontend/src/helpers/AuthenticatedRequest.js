@@ -7,13 +7,11 @@ export const makeAuthenticatedRequest = async (url, method, body = null) => {
     
     const options = {
         method: method,
-        credential: 'include',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache, no-store, must-revalidate', 
-            'Pragma': 'no-cache',
-            'Expires': '0'
-        }
+            'Cache-Control': 'no-cache'
+          }
     };
 
     if (!navigator.userAgent.includes('Safari') || navigator.userAgent.includes('Chrome')) {
@@ -25,7 +23,7 @@ export const makeAuthenticatedRequest = async (url, method, body = null) => {
     }
 
     if (body) {
-        options.body = JSON.stringify(body);
+        options.body = JSON.stringify(body);qq
     }
     
     try {
