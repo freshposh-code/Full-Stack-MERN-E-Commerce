@@ -8,27 +8,38 @@ const router = require('./routes')
 const app = express()
 app.use(cors({
     origin: function(origin, callback) {
+<<<<<<< HEAD
         // Handle if origin is null
         if (!origin) {
             return callback(null, true);
         }
         
         const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
+=======
+>>>>>>> 5fa8ed5d0b90ca4b05a675a990bc27221dc60a72
         const allowedOrigins = [
             'http://localhost:5173',
             'https://poshstore.vercel.app'
         ];
-        
-        if (allowedOrigins.includes(normalizedOrigin)) {
+
+        if (!origin || allowedOrigins.includes(origin) || 
+            allowedOrigins.includes(origin.endsWith('/') ? origin.slice(0, -1) : origin)) {
             return callback(null, true);
         } else {
             console.log("Blocked by CORS: ", origin);
             return callback(new Error('Not allowed by CORS'));
         }
     },
+<<<<<<< HEAD
     credentials: true
 }));
 
+=======
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+>>>>>>> 5fa8ed5d0b90ca4b05a675a990bc27221dc60a72
 app.use(express.json());
 app.use(cookieParser());
 
