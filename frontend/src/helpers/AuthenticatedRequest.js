@@ -7,6 +7,7 @@ export const makeAuthenticatedRequest = async (url, method, body = null) => {
     
     const options = {
         method: method,
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache, no-store, must-revalidate', 
