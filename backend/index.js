@@ -7,26 +7,9 @@ const router = require('./routes')
 
 const app = express()
 app.use(cors({
-    origin: function(origin, callback) {
-        if (!origin) {
-            return callback(null, true);
-        }
-        
-        const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
-        const allowedOrigins = [
-            'http://localhost:5173',
-            'https://poshstore.vercel.app'
-        ];
-        
-        if (allowedOrigins.includes(normalizedOrigin)) {
-            return callback(null, true);
-        } else {
-            console.log("Blocked by CORS: ", origin);
-            return callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: ['http://localhost:5173', 'https://poshstore.vercel.app'],
     credentials: true
-}));
+  }));
 
 app.use(express.json());
 app.use(cookieParser());
