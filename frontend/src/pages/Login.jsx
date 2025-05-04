@@ -35,27 +35,38 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(setLoading(true));
-
-        const dataResponse = await fetch(SummaryApi.signIn.url, {
-            method: SummaryApi.signIn.method,
-            credentials: 'include',
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-
-        const dataApi = await dataResponse.json();
-        dispatch(setLoading(false));
-
-        if (dataApi.success) {
-            toast.success(dataApi.message)
-            navigate('/')
-            fetchUserDetails();
-            fetchUserAddToCart();
-        }
-        if (dataApi.error) {
-            toast.error(dataApi.message)
+    
+        try {
+            const dataResponse = await fetch(SummaryApi.signIn.url, {
+                method: SummaryApi.signIn.method,
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+    
+            const dataApi = await dataResponse.json();
+            dispatch(setLoading(false));
+    
+            if (dataApi.success) {
+                if (dataApi.token) {
+                    localStorage.setItem('token', dataApi.token);
+                    console.log('Token stored in localStorage');
+                }
+    
+                toast.success(dataApi.message);
+                navigate('/');
+                
+                fetchUserDetails();
+                fetchUserAddToCart();
+            }
+            if (dataApi.error) {
+                toast.error(dataApi.message);
+            }
+        } catch (error) {
+            dispatch(setLoading(false));
+            toast.error('An error occurred during sign in');
+            console.error('Sign in error:', error);
         }
     };
 
