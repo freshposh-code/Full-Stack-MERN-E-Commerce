@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { emptybag } from '../assest/index';
 import { loadStripe } from '@stripe/stripe-js';
 import { makeAuthenticatedRequest } from '../helpers/AuthenticatedRequest';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
     const [data, setData] = useState([])
@@ -85,25 +86,68 @@ const Cart = () => {
     }
 
     const handlePayment = async () => {
-        const stripePromise = await loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY)
-        const response = await fetch(SummaryApi.payment.url, {
-            method: SummaryApi.payment.method,
-            credentials: 'include',
-            headers: {
-                "content-type": 'application/json'
-            },
-            body: JSON.stringify({
-                cartItems: data
-            })
-        })
+        try {
+            const stripe = await loadStripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
+            
+            if (!stripe) {
+                console.error("Failed to load Stripe");
+                toast.error("Payment system failed to initialize. Please try again later.");
+                return;
+            }
 
-        const responseData = await response.json()
-
-        if (responseData?.id) {
-            stripePromise.redirectToCheckout({ sessionId: responseData.id })
+            const token = localStorage.getItem("token");
+            
+            console.log("Auth check before payment:", {
+                hasToken: !!token,
+                cookiesEnabled: navigator.cookieEnabled
+            });
+            
+            const response = await fetch(SummaryApi.payment.url, {
+                method: SummaryApi.payment.method,
+                credentials: 'include',
+                headers: {
+                    "Content-Type": 'application/json',
+                    ...(token && { "Authorization": `Bearer ${token}` })
+                },
+                body: JSON.stringify({
+                    cartItems: data
+                })
+            });
+            
+            if (response.status === 401) {
+                console.error("Authentication failed");
+                toast.error("Session expired. Please log in again.");
+                return;
+            }
+            
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error("Payment API error:", response.status, errorData);
+                toast.error(errorData.message || "Payment failed. Please try again later.");
+                return;
+            }
+            
+            const responseData = await response.json();
+            console.log("Payment response:", responseData);
+            
+            if (!responseData?.id) {
+                console.error("Missing session ID in response", responseData);
+                toast.error("Payment initialization failed. Please try again later.");
+                return;
+            }
+            
+            toast.info("Redirecting to payment gateway...");
+            
+            const result = await stripe.redirectToCheckout({ sessionId: responseData.id });
+            
+            if (result.error) {
+                console.error("Stripe redirect error:", result.error);
+                toast.error(`Payment error: ${result.error.message}`);
+            }
+        } catch (error) {
+            console.error("Payment process failed:", error);
+            toast.error("Payment process failed. Please try again later.");
         }
-
-        console.log("payment response", responseData)
     }
 
     const totalQty = data.reduce((previousValue, currentValue) => previousValue + currentValue.quantity, 0)
