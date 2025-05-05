@@ -52,7 +52,26 @@ const App = () => {
       <Context.Provider value={{
         fetchUserDetails, fetchUserAddToCart, cartProductCount
       }}>
-        <ToastContainer position='top-center' />
+ <ToastContainer
+    position="top-left"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      style={{
+        width: 'auto',
+        maxWidth: '350px',
+        margin: '5px',
+        fontSize: '12px',
+        fontWeight: 'bold'
+      }}
+      toastStyle={{
+        borderRadius: '22px',
+      }}
+    />
         <Header />
         <main className='pt-16'>
           <Outlet />
