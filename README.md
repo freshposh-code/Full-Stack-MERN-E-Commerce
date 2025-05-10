@@ -2,17 +2,7 @@
 
 ## Overview
 
-This project is a full-stack ecommerce application built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [Node.js](https://nodejs.org/), and [MongoDB](https://www.mongodb.com/). The app is designed to provide a seamless shopping experience with a modern front-end and robust back-end.
-
-## Features
-
-- **Frontend**: Built with Vite, providing a fast development environment and optimized production builds.
-- **User Authentication**: Secure user registration and login using JWT (JSON Web Tokens).
-- **Product Management**: Browse, search, and filter products with a dynamic and responsive UI.
-- **Shopping Cart**: Add and manage items in a shopping cart, with real-time updates.
-- **Checkout and Payments**: Integrated payment processing with Stripe, supporting various payment methods.
-- **Admin Dashboard**: A secure area for managing products, orders, and users.
-- **Responsive Design**: Fully responsive, ensuring a great user experience across all devices.
+This project is a full-stack ecommerce application built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [Node.js](https://nodejs.org/), and [MongoDB](https://www.mongodb.com/). The app is designed to provide a seamless shopping experience with an optimized front-end and robust back-end.
 
 A full-featured e-commerce web application built with **React**, **MongoDB**, and **Node.js**. Includes authentication, product search, filtering, upload, cart functionality, and complete CRUD operations for both users and admins.
 
@@ -34,6 +24,7 @@ A full-featured e-commerce web application built with **React**, **MongoDB**, an
 - 
 - ⚙️ **REST API** built with Express
 
+ **Responsive Design**: Fully responsive, ensuring a great user experience across all devices.
 ---
 
 ## 🧱 Tech Stack
