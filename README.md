@@ -9,19 +9,19 @@ A full-featured e-commerce web application built with **React**, **MongoDB**, an
 ## 🚀 Features
 
 - 🔐 **Authentication** (JWT-based login, signup, password hashing)
-- 
+  
 - 🛒 **Cart System** (add/remove/update items)
-- 
+  
 - 🔍 **Search & Filtering** by category, price, keyword
-- 
+  
 - 🧾 **Checkout Functionality** (payment integration |STRIPE|)
-- 
+  
 - 🧑‍💼 **Admin Controls** (CRUD on products, view orders, manage users)'
-- 
+  
 - 📸 **Product Upload** (with image support)
-- 
+  
 - 📦 **MongoDB Database** for all product/user/order data
-- 
+  
 - ⚙️ **REST API** built with Express
 
  **Responsive Design**: Fully responsive, ensuring a great user experience across all devices.
