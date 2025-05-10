@@ -1,4 +1,4 @@
-# Full-Stack Ecommerce App
+🛍️ Full-Stack Ecommerce App
 
 ## Overview
 
@@ -6,13 +6,48 @@ This project is a full-stack ecommerce application built with [Vite](https://vit
 
 ## Features
 
-- **Fast and Modern Frontend**: Built with Vite, providing a fast development environment and optimized production builds.
+- **Frontend**: Built with Vite, providing a fast development environment and optimized production builds.
 - **User Authentication**: Secure user registration and login using JWT (JSON Web Tokens).
 - **Product Management**: Browse, search, and filter products with a dynamic and responsive UI.
 - **Shopping Cart**: Add and manage items in a shopping cart, with real-time updates.
 - **Checkout and Payments**: Integrated payment processing with Stripe, supporting various payment methods.
 - **Admin Dashboard**: A secure area for managing products, orders, and users.
 - **Responsive Design**: Fully responsive, ensuring a great user experience across all devices.
+
+A full-featured e-commerce web application built with **React**, **MongoDB**, and **Node.js**. Includes authentication, product search, filtering, upload, cart functionality, and complete CRUD operations for both users and admins.
+
+## 🚀 Features
+
+- 🔐 **Authentication** (JWT-based login, signup, password hashing)
+- 
+- 🛒 **Cart System** (add/remove/update items)
+- 
+- 🔍 **Search & Filtering** by category, price, keyword
+- 
+- 🧾 **Checkout Functionality** (payment integration |STRIPE|)
+- 
+- 🧑‍💼 **Admin Controls** (CRUD on products, view orders, manage users)'
+- 
+- 📸 **Product Upload** (with image support)
+- 
+- 📦 **MongoDB Database** for all product/user/order data
+- 
+- ⚙️ **REST API** built with Express
+
+---
+
+## 🧱 Tech Stack
+
+| Tech        | Description                       |
+|-------------|-----------------------------------|
+| React       | Frontend library                  |
+| Redux/Context | State management (optional)     |
+| Express     | Backend framework (Node.js)       |
+| MongoDB     | NoSQL database                    |
+| Mongoose    | MongoDB object modeling           |
+| JWT         | Authentication                    |
+| Cloudinary | File/image upload support |
+
 
 ## Installation
 
