@@ -72,7 +72,7 @@ A full-featured e-commerce web application built with **React**, **MongoDB**, an
 
 4. Run the server:
     ```bash
-    npm start
+    npm run dev
     ```
 
 ### Frontend Setup
